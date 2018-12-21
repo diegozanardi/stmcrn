@@ -25,8 +25,13 @@ $cv = $this->controller->view_data["custom_values"];
             );
         });
 
-        $('.btn_add_row').click(function () {
+        $('.btn_add_row').click(function (event) {
+          event.preventDefault();
             $('#new_row').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();
+          $('#item_table tbody:last-child input[name="item_name"').focus();
+
+
+
         });
 
         <?php if (!$items) { ?>
@@ -486,7 +491,7 @@ if ($this->config->item('disable_read_only') == true) {
 
             <hr/>
 
-            <div class="row">
+            <div class="row" style="display:none;">
                 <div class="col-xs-12 col-md-6">
 
                     <div class="panel panel-default no-margin">

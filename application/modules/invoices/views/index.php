@@ -11,12 +11,11 @@
             <i class="fa fa-plus"></i> <?php _trans('new'); ?>
         </a>
     </div>
-
     <div class="headerbar-item pull-right visible-lg">
         <?php echo pager(site_url('invoices/status/' . $this->uri->segment(3)), 'mdl_invoices'); ?>
     </div>
 
-    <div class="headerbar-item pull-right visible-lg">
+    <div class=b"headerbar-item pull-right visible-lg">
         <div class="btn-group btn-group-sm index-options">
             <a href="<?php echo site_url('invoices/status/all'); ?>"
                class="btn <?php echo $status == 'all' ? 'btn-primary' : 'btn-default' ?>">

@@ -71,9 +71,9 @@ foreach ($custom_fields as $custom_field) {
 
 <ul id="submenu" class="nav nav-tabs nav-tabs-noborder">
     <li class="active"><a data-toggle="tab" href="#clientDetails"><?php _trans('details'); ?></a></li>
-    <li><a data-toggle="tab" href="#clientQuotes"><?php _trans('quotes'); ?></a></li>
-    <li><a data-toggle="tab" href="#clientInvoices"><?php _trans('invoices'); ?></a></li>
+      <li><a data-toggle="tab" href="#clientInvoices"><?php _trans('invoices'); ?></a></li>
     <li><a data-toggle="tab" href="#clientPayments"><?php _trans('payments'); ?></a></li>
+
 </ul>
 
 <div id="content" class="tabbable tabs-below no-padding">
@@ -84,55 +84,43 @@ foreach ($custom_fields as $custom_field) {
             <?php $this->layout->load_view('layout/alerts'); ?>
 
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="col-xs-12 col-sm-12 col-md-6">
 
                     <h3><?php _htmlsc(format_client($client)); ?></h3>
                     <p>
                         <?php $this->layout->load_view('clients/partial_client_address'); ?>
                     </p>
+                    <span>
+                    <?php if ($client->client_vat_id) : ?>
 
+                            <?php _trans('vat_id'); ?>
+                            <?php _htmlsc($client->client_vat_id); ?>
+                        </span>
+                    <?php endif; ?>
+                    <?php if ($client->client_tax_code) : ?>
+                        <p>
+                          <?php _trans('tax_code'); ?></th>
+                          <?php _htmlsc($client->client_tax_code); ?>
+                        </p>
+                    <?php endif; ?>
+
+                    <?php foreach ($custom_fields as $custom_field) : ?>
+                        <?php if ($custom_field->custom_field_location != 4) {
+                            continue;
+                        } ?>
+                        <tr>
+                            <?php
+                            $column = $custom_field->custom_field_label;
+                            $value = $this->mdl_client_custom->form_value('cf_' . $custom_field->custom_field_id);
+                            ?>
+                            <th><?php _htmlsc($column); ?></th>
+                            <td><?php _htmlsc($value); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
 
-                    <table class="table table-bordered no-margin">
-                        <tr>
-                            <th>
-                                <?php _trans('language'); ?>
-                            </th>
-                            <td class="td-amount">
-                                <?php echo ucfirst($client->client_language); ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <?php _trans('total_billed'); ?>
-                            </th>
-                            <td class="td-amount">
-                                <?php echo format_currency($client->client_invoice_total); ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <?php _trans('total_paid'); ?>
-                            </th>
-                            <th class="td-amount">
-                                <?php echo format_currency($client->client_invoice_paid); ?>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <?php _trans('total_balance'); ?>
-                            </th>
-                            <td class="td-amount">
-                                <?php echo format_currency($client->client_invoice_balance); ?>
-                            </td>
-                        </tr>
-                    </table>
-
-                </div>
             </div>
 
-            <hr>
 
             <div class="row">
                 <div class="col-xs-12 col-md-6">
@@ -190,50 +178,14 @@ foreach ($custom_fields as $custom_field) {
                     </div>
 
                 </div>
-                <div class="col-xs-12 col-md-6">
-                    <div class="panel panel-default no-margin">
 
-                        <div class="panel-heading"><?php _trans('tax_information'); ?></div>
-                        <div class="panel-body table-content">
-                            <table class="table no-margin">
-                                <?php if ($client->client_vat_id) : ?>
-                                    <tr>
-                                        <th><?php _trans('vat_id'); ?></th>
-                                        <td><?php _htmlsc($client->client_vat_id); ?></td>
-                                    </tr>
-                                <?php endif; ?>
-                                <?php if ($client->client_tax_code) : ?>
-                                    <tr>
-                                        <th><?php _trans('tax_code'); ?></th>
-                                        <td><?php _htmlsc($client->client_tax_code); ?></td>
-                                    </tr>
-                                <?php endif; ?>
-
-                                <?php foreach ($custom_fields as $custom_field) : ?>
-                                    <?php if ($custom_field->custom_field_location != 4) {
-                                        continue;
-                                    } ?>
-                                    <tr>
-                                        <?php
-                                        $column = $custom_field->custom_field_label;
-                                        $value = $this->mdl_client_custom->form_value('cf_' . $custom_field->custom_field_id);
-                                        ?>
-                                        <th><?php _htmlsc($column); ?></th>
-                                        <td><?php _htmlsc($value); ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
             </div>
 
             <?php if ($client->client_surname != ""): //Client is not a company ?>
                 <hr>
 
                 <div class="row">
-                    <div class="col-xs-12 col-md-6">
+                    <div class="col-xs-12 col-md-6 hide">
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -322,38 +274,206 @@ foreach ($custom_fields as $custom_field) {
                 </div>
             <?php endif; ?>
 
-            <hr>
-
             <div class="row">
-                <div class="col-xs-12 col-md-6">
-
-                    <div class="panel panel-default no-margin">
-                        <div class="panel-heading">
-                            <?php _trans('notes'); ?>
+                <div class="col-xs-12 col-md-12">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                      <div class="widget">
+                        <div class="widget-heading clearfix">
+                          <div class="pull-left">Facturado</div>
                         </div>
-                        <div class="panel-body">
-                            <div id="notes_list">
-                                <?php echo $partial_notes; ?>
-                            </div>
-                            <input type="hidden" name="client_id" id="client_id"
-                                   value="<?php echo $client->client_id; ?>">
-                            <div class="input-group">
-                                <textarea id="client_note" class="form-control" rows="2" style="resize:none"></textarea>
-                                <span id="save_client_note" class="input-group-addon btn btn-default">
-                                    <?php _trans('add_note'); ?>
-                                </span>
-                            </div>
+                        <div class="widget-body clearfix">
+                          <div class="pull-left">
+                          <i class="fa fa-file-text-o"></i>
+                          </div>
+                          <div class="pull-right number"><?php echo format_currency($client->client_invoice_total); ?></div>
                         </div>
+                      </div>
                     </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                      <div class="widget">
+                        <div class="widget-heading clearfix">
+                          <div class="pull-left">Cobrado</div>
+                        </div>
+                        <div class="widget-body clearfix">
+                          <div class="pull-left">
+                            <i class="fa fa-credit-card"></i>
+                          </div>
+                          <div class="pull-right number">  <?php echo format_currency($client->client_invoice_paid); ?></div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                      <div class="widget">
+                        <div class="widget-heading clearfix">
+                          <div class="pull-left">Saldo</div>
+                        </div>
+                        <div class="widget-body clearfix">
+                          <div class="pull-left">
+                            <i class="fa fa-balance-scale"></i>
+                          </div>
+                          <div class="pull-right number">  <?php echo format_currency($client->client_invoice_balance); ?></div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+                  <h2>Cuenta Corriente</h2>
+                  <div class="table-responsive-sm">
+                      <table class="table table-bordered table-hover">
+
+                          <thead>
+                          <tr>
+                              <th>Fecha</th>
+                              <th>Comprobante</th>
+                              <th>Facturado</th>
+                              <th>Pagado</th>
+                              <th><?php _trans('balance'); ?></th>
+                              <th><?php _trans('options'); ?></th>
+                          </tr>
+                          </thead>
+
+                          <tbody>
+                          <?php
+                          $invoice_idx = 1;
+                          $invoice_count = count($invoices);
+                          $invoice_list_split = $invoice_count > 3 ? $invoice_count / 2 : 9999;
+                          foreach ($invoices as $invoice) {
+                              // Disable read-only if not applicable
+                              if ($this->config->item('disable_read_only') == true) {
+                                  $invoice->is_read_only = 0;
+                              }
+                              // Convert the dropdown menu to a dropup if invoice is after the invoice split
+                              $dropup = $invoice_idx > $invoice_list_split ? true : false;
+                              ?>
+                              <tr>
+                                <td>
+                                    <?php echo date_from_mysql($invoice->invoice_date_created); ?>
+                                </td>
+                                <td>
+                                    <a href="<?php echo site_url('invoices/view/' . $invoice->invoice_id); ?>"
+                                       title="<?php _trans('edit'); ?>">
+                                        <?php echo($invoice->invoice_number ? $invoice->invoice_number : $invoice->invoice_id); ?>
+                                    </a>
+                                </td>
+                                <td class=" <?php if ($invoice->invoice_sign == '-1') {
+                                    echo 'text-danger';
+                                }; ?>">
+                                    <?php echo format_currency($invoice->invoice_total); ?>
+                                </td>
+                                <td>
+
+
+                                </td>
+                                <td>
+                                    <?php echo format_currency($invoice->invoice_balance); ?>
+                                </td>
+                                <td>
+                                      <div class="options btn-group<?php echo $dropup ? ' dropup' : ''; ?>">
+                                          <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
+                                              <i class="fa fa-cog"></i> <?php _trans('options'); ?>
+                                          </a>
+                                          <ul class="dropdown-menu">
+                                              <?php if ($invoice->is_read_only != 1) { ?>
+                                                  <li>
+                                                      <a href="<?php echo site_url('invoices/view/' . $invoice->invoice_id); ?>">
+                                                          <i class="fa fa-edit fa-margin"></i> <?php _trans('edit'); ?>
+                                                      </a>
+                                                  </li>
+                                              <?php } ?>
+                                              <li>
+                                                  <a href="<?php echo site_url('invoices/generate_pdf/' . $invoice->invoice_id); ?>"
+                                                     target="_blank">
+                                                      <i class="fa fa-print fa-margin"></i> <?php _trans('download_pdf'); ?>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="<?php echo site_url('mailer/invoice/' . $invoice->invoice_id); ?>">
+                                                      <i class="fa fa-send fa-margin"></i> <?php _trans('send_email'); ?>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" class="invoice-add-payment"
+                                                     data-invoice-id="<?php echo $invoice->invoice_id; ?>"
+                                                     data-invoice-balance="<?php echo $invoice->invoice_balance; ?>"
+                                                     data-invoice-payment-method="<?php echo $invoice->payment_method; ?>">
+                                                      <i class="fa fa-money fa-margin"></i>
+                                                      <?php _trans('enter_payment'); ?>
+                                                  </a>
+                                              </li>
+                                              <?php if (
+                                                  $invoice->invoice_status_id == 1 ||
+                                                  ($this->config->item('enable_invoice_deletion') === true && $invoice->is_read_only != 1)
+                                              ) { ?>
+                                                  <li>
+                                                      <form action="<?php echo site_url('invoices/delete/' . $invoice->invoice_id); ?>"
+                                                            method="POST">
+                                                          <?php _csrf_field(); ?>
+                                                          <button type="submit" class="dropdown-button"
+                                                                  onclick="return confirm('<?php _trans('delete_invoice_warning'); ?>');">
+                                                              <i class="fa fa-trash-o fa-margin"></i> <?php _trans('delete'); ?>
+                                                          </button>
+                                                      </form>
+                                                  </li>
+                                              <?php } ?>
+                                          </ul>
+                                      </div>
+                                  </td>
+                              </tr>
+                              <?php
+                              $invoice_idx++;
+                          } ?>
+
+
+                          <?php foreach ($payments as $payment) { ?>
+                              <tr>
+                                  <td><?php echo date_from_mysql($payment->payment_date); ?></td>
+                                  <td><?php _htmlsc($payment->payment_method_name); ?></td>
+                                    <td><span class="badge"><?php _htmlsc($payment->payment_note); ?></span></td>
+                                  <td><?php echo format_currency($payment->payment_amount); ?></td>
+                                  <td></td>
+
+                                  <td>
+                                      <div class="options btn-group">
+                                          <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
+                                              <i class="fa fa-cog"></i> <?php _trans('options'); ?>
+                                          </a>
+                                          <ul class="dropdown-menu">
+                                              <li>
+                                                  <a href="<?php echo site_url('payments/form/' . $payment->payment_id); ?>">
+                                                      <i class="fa fa-edit fa-margin"></i>
+                                                      <?php _trans('edit'); ?>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <form action="<?php echo site_url('payments/delete/' . $payment->payment_id); ?>"
+                                                        method="POST">
+                                                      <?php _csrf_field(); ?>
+                                                      <button type="submit" class="dropdown-button"
+                                                              onclick="return confirm('<?php _trans('delete_record_warning'); ?>');">
+                                                          <i class="fa fa-trash-o fa-margin"></i> <?php _trans('delete'); ?>
+                                                      </button>
+                                                  </form>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </td>
+                              </tr>
+                          <?php } ?>
+                          </tbody>
+
+                      </table>
+                  </div>
 
                 </div>
             </div>
 
         </div>
 
-        <div id="clientQuotes" class="tab-pane table-content">
-            <?php echo $quote_table; ?>
-        </div>
+
 
         <div id="clientInvoices" class="tab-pane table-content">
             <?php echo $invoice_table; ?>
@@ -362,6 +482,7 @@ foreach ($custom_fields as $custom_field) {
         <div id="clientPayments" class="tab-pane table-content">
             <?php echo $payment_table; ?>
         </div>
+        
     </div>
 
 </div>
