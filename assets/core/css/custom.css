@@ -52,3 +52,16 @@ input.amount {
 tbody.ui-sortable-handle {
   border-bottom: 1px solid #ece7e7;
 }
+
+.table-wrapper-scroll-y {
+display: block;
+max-height: 500px;
+overflow-y: auto;
+-ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.table-white{
+  background-color: white;
+  border: 1px solid #efe9e9;
+  padding: 5px;
+}

@@ -304,9 +304,9 @@ textarea {
 .sidebar {
   display: table-cell;
   vertical-align: top;
-  width: 66px;
-  height: 100%;
+
   padding: 0;
+  background: #0e1a35;
 
   ul {
     margin: 0;
@@ -316,15 +316,17 @@ textarea {
 
   li {
     a {
-      padding: 14px;
+      padding: 15px;
       display: block;
       border-bottom: 1px solid #ddd;
-      font-size: $font-size-large;
-      color: $gray;
-      text-align: center;
+      font-size: $font-size-small;
+      color: #677ba8;
+      border-bottom: 1px solid #0d172e;
+      border-top: 1px solid #0d172e;
+
 
       &:hover {
-        color: $brand-primary;
+        color: white;
       }
     }
   }
@@ -685,6 +687,7 @@ div.table-content {
 #panel-recent-quotes,
 #panel-recent-invoices {
   .panel-body {
+
     padding: 0;
   }
 

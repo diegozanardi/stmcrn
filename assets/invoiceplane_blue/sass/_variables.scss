@@ -15,7 +15,7 @@ $gray:                   lighten($gray-base, 33.5%) !default; // #555
 $gray-light:             lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
-$brand-primary:         #2C8EDD !default;
+$brand-primary:         #0e1a30 !default;
 $brand-success:         #5cb85c !default;
 $brand-info:            #5bc0de !default;
 $brand-warning:         #f0ad4e !default;
@@ -27,14 +27,14 @@ $brand-danger:          #d9534f !default;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               #fff !default;
+$body-bg:               #f5f5f5 !default;
 //** Global text color on `<body>`.
 $text-color:            $gray-dark !default;
 
 //** Global textual link color.
 $link-color:            $brand-primary !default;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-color:      lighten($link-color, 60%) !default;
 //** Link hover decoration.
 $link-hover-decoration: underline !default;
 
@@ -370,7 +370,7 @@ $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2
 $navbar-collapse-max-height:       340px !default;
 
 $navbar-default-color:             #777 !default;
-$navbar-default-bg:                #f8f8f8 !default;
+$navbar-default-bg:                #0e1a35 !default;
 $navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
 
 // Navbar links
@@ -397,7 +397,7 @@ $navbar-default-toggle-border-color:       #ddd !default;
 // Reset inverted navbar basics
 $navbar-inverse-color:                      rgba(255, 255, 255, .8) !default;
 $navbar-inverse-bg:                         $brand-primary !default;
-$navbar-inverse-border:                     darken($navbar-inverse-bg, 10%) !default;
+$navbar-inverse-border:                     darken($navbar-inverse-bg, 1%) !default;
 
 // Inverted navbar links
 $navbar-inverse-link-color:                 rgba(255, 255, 255, .8) !default;
@@ -717,9 +717,9 @@ $panel-border-radius:         $border-radius-base !default;
 $panel-inner-border:          #ddd !default;
 $panel-footer-bg:             #f5f5f5 !default;
 
-$panel-default-text:          $gray-dark !default;
-$panel-default-border:        #ddd !default;
-$panel-default-heading-bg:    #f5f5f5 !default;
+$panel-default-text:          white !default;
+$panel-default-border:        #ececec !default;
+$panel-default-heading-bg:    #0f5ed5e6 !default;
 
 $panel-primary-text:          #fff !default;
 $panel-primary-border:        $brand-primary !default;
