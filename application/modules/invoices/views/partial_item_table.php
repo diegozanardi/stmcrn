@@ -1,8 +1,8 @@
 <div class="col-md-12">
-<div class="table-responsive">
+<div class="table-responsive table-wrapper-scroll-y">
   <h3>Detalle de la factura</h3>
   <br>
-    <table id="item_table" class="table table-hover">
+    <table id="item_table" class="table table-hover table-white">
         <thead>
         <tr style="display:none;">
             <th class="text-center">#</th>
