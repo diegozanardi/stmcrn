@@ -1,5 +1,54 @@
 <div id="content">
     <?php echo $this->layout->load_view('layout/alerts'); ?>
+    <div class="row">
+      <div class="col-md-12">
+
+
+      <div class="col-lg-3 col-sm-6">
+      <div class="circle-tile ">
+        <a href="#"><div class="circle-tile-heading dark-blue"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
+        <div class="circle-tile-content dark-blue">
+          <div class="circle-tile-description text-faded"> Clientes</div>
+          <div class="circle-tile-number text-faded ">265</div>
+          <a class="circle-tile-footer" href="#">Mas info<i class="fa fa-chevron-circle-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+      <div class="circle-tile ">
+        <a href="#"><div class="circle-tile-heading blue"><i class="fa fa-file-text-o fa-3x"></i></div></a>
+        <div class="circle-tile-content blue">
+          <div class="circle-tile-description text-faded">Facturado</div>
+          <div class="circle-tile-number text-faded">12000</div>
+          <a class="circle-tile-footer" href="#">More Info<i class="fa fa-chevron-circle-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="circle-tile">
+        <a href="#"><div class="circle-tile-heading green"><i class="fa fa-credit-card fa-3x"></i></div></a>
+        <div class="circle-tile-content green">
+          <div class="circle-tile-description text-faded">Pagado </div>
+          <div class="circle-tile-number text-white">$1.422.572,00</div>
+          <a class="circle-tile-footer" href="#">More Info<i class="fa fa-chevron-circle-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="circle-tile">
+        <a href="#"><div class="circle-tile-heading red"><i class="fa fa-balance-scale fa-3x"></i></div></a>
+        <div class="circle-tile-content red">
+          <div class="circle-tile-description text-faded">Saldo </div>
+          <div class="circle-tile-number text-white">$10000</div>
+          <a class="circle-tile-footer" href="#">More Info<i class="fa fa-chevron-circle-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
 
     <div class="row <?php if (get_setting('disable_quickactions') == 1) echo 'hidden'; ?>">
         <div class="col-xs-12">
@@ -32,6 +81,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="row">
         <div class="col-xs-12 col-md-6">
